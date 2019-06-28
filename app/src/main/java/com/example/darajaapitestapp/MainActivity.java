@@ -27,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText amount,account;
     private Button stkpushBtn;
     private Daraja daraja;
+    private String mPesaResult;
+    private GenericLoader genericLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         stkpushBtn = findViewById(R.id.stk_push_btn);
 
         amount = findViewById(R.id.amount);
@@ -64,34 +66,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 if (TextUtils.isEmpty(amount.getText().toString())  || TextUtils.isEmpty(account.getText().toString())) {
                     Toast.makeText(getApplicationContext(), "All  Fields are required ", Toast.LENGTH_SHORT).show();
                 } else {
                     //dialog.show();
-                    initiateStkPush();
 
-//                new AsyncTask<Void, Void, Void>() {
-//
-//                    @Override
-//                    protected void onPreExecute() {
-//                        super.onPreExecute();
-//
-//                        new GenericLoader().show(getSupportFragmentManager(),"please wait");
-//                       // Toast.makeText(getApplicationContext(),"started call to mpesa ...",Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    protected Void doInBackground(Void... voids) {
-//                        initiateStkPush();
-//                        return null;
-//                    }
-//
-//                    @Override
-//                    protected void onPostExecute(Void aVoid) {
-//                        super.onPostExecute(aVoid);
-//                        //dialog.dismiss();
-//                    }
-//                }.execute();
+
+                new AsyncTask<Void, Void, String>() {
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+
+                        new GenericLoader().show(getSupportFragmentManager(),"please wait");
+                       // Toast.makeText(getApplicationContext(),"started call to mpesa ...",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    protected String doInBackground(Void... voids) {
+                        return initiateStkPush();
+                    }
+
+                    @Override
+                    protected void onPostExecute(String  aMessage) {
+                        super.onPostExecute(aMessage);
+                       // new GenericLoader().dismiss();
+                        Toast.makeText(getApplicationContext(),aMessage,Toast.LENGTH_SHORT).show();
+                    }
+                }.execute();
             }
 
             }
@@ -101,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initiateStkPush() {
+    private String  initiateStkPush() {
 
             //Get Phone Number from User Input
 
@@ -128,15 +131,22 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onResult(@NonNull LNMResult lnmResult) {
                             Log.i(MainActivity.this.getClass().getSimpleName(), lnmResult.ResponseDescription);
+                            mPesaResult = "Success "+ lnmResult.ResponseDescription;
+
                         }
 
                         @Override
                         public void onError(String error) {
                             Log.i(MainActivity.this.getClass().getSimpleName(), error);
+                            mPesaResult = "Error : " +error;
+
 
                         }
                     }
             );
+
+
+            return mPesaResult;
 
     }
 }
