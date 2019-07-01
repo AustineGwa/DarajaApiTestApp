@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResult(@NonNull AccessToken accessToken) {
 
                 //Log.i(MainActivity.this.getClass().getSimpleName(), accessToken.getAccess_token());
-                Toast.makeText(MainActivity.this, "TOKEN : " + accessToken.getAccess_token(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "TOKEN : " + accessToken.getAccess_token(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
