@@ -17,7 +17,7 @@
         android:layout_gravity="center_vertical"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        android:text="Thank you sam..."
+        android:text="Please wait..."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
