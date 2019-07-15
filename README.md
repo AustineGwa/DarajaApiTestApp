@@ -1,4 +1,4 @@
 # DarajaApiTestApp
-<br/>An android application that implements Safaricoms Daraja Api
+An android application that implements Safaricoms Daraja Api<br/>
 To implement this sample in your project replace the test credentials with your apps credentials and you are good to go<Br/>
-The dialog showing progress is also a generic one and can be called from anywhere in your app.<br/>Happy coding!!!!
+To read the mpesa responses after  a transaction, you will need a running server to act as the callbackurl from where you will host the callback file 
